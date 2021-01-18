@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">eternalReader</string>
+
+    <string name="file_provider">com.gbh.eternalreader.fileprovider</string>
+    <string name="empty_rack_tips">书架已空，点击添加</string>
+    <string name="bookName">书名</string>
+    <string name="read_tips">阅读说明</string>
 </resources>

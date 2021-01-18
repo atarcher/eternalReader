@@ -1,5 +1,6 @@
 plugins {
     id 'com.android.application'
+    id 'org.greenrobot.greendao'
 }
 
 android {
@@ -11,7 +12,7 @@ android {
         minSdkVersion 23
         targetSdkVersion 29
         versionCode 1
-        versionName "1.0"
+        versionName "1.0.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -20,20 +21,78 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            ndk {
+//                配置支持的平台类型
+                abiFilters "x86", "armeabi", "armeabi-v7a"
+            }
+        }
+        debug {
+            ndk {
+                abiFilters "x86", "armeabi", "armeabi-v7a"
+            }
         }
     }
+
+    //    指定哪些源文件（或文件夹下的源文件）要被编译，哪些源文件要被排除
+    sourceSets.main {
+        jni.srcDirs = []
+        jniLibs.srcDir "libs/"
+    }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    //jetPack使用
+    buildFeatures {
+        viewBinding = true
+    }
+
+    dataBinding {
+        enabled true
+    }
+}
+
+greendao {
+    //指定数据库schema版本号，迁移等操作会用到
+    schemaVersion 1
+    //DaoSession、DaoMaster以及所有实体类的dao生成的目录,默认为你的entity所在的包名
+    //daoPackage 包名
+    daoPackage 'com.gbh.eternalreader.database.greendao.gen'
+    //这就是我们上面说到的自定义生成数据库文件的目录了，可以将生成的文件放到我们的java目录中，而不是build中，这样就不用额外的设置资源目录了
+    //工程路径
+    targetGenDir 'src/main/java'
 }
 
 dependencies {
 
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'com.google.android.material:material:1.1.0'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-    testImplementation 'junit:junit:4.+'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'com.google.android.material:material:1.2.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    testImplementation 'junit:junit:4.13.1'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+
+    //greenDAO
+    implementation 'org.greenrobot:greendao:3.3.0'
+    //greenDao数据库升级辅助框架
+    implementation 'com.github.yuweiguocn:GreenDaoUpgradeHelper:v2.2.1'
+
+    //MVVMHabit
+    implementation 'com.github.goldze:MVVMHabit:3.1.6'
+
+    //smartRefreshLayout
+    implementation 'com.scwang.smart:refresh-layout-kernel:2.0.1'
+    implementation 'com.scwang.smart:refresh-header-classics:2.0.1'
+    implementation 'com.scwang.smart:refresh-footer-classics:2.0.1'
+
+    //adapter绑定
+    implementation 'me.tatarka.bindingcollectionadapter2:bindingcollectionadapter:4.0.0'
+    implementation 'me.tatarka.bindingcollectionadapter2:bindingcollectionadapter-recyclerview:4.0.0'
+    implementation 'me.tatarka.bindingcollectionadapter2:bindingcollectionadapter-viewpager2:4.0.0'
+
+    //图片加载
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
 }
