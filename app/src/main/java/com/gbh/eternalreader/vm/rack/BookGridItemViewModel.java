@@ -1,13 +1,6 @@
 package com.gbh.eternalreader.vm.rack;
 
-import android.view.View;
-import android.widget.ImageView;
-
 import androidx.annotation.NonNull;
-import androidx.databinding.BindingAdapter;
-
-import com.gbh.eternalreader.database.entity.Book;
-import com.gbh.eternalreader.ui.fragment.BookRackFragment;
 
 import me.goldze.mvvmhabit.binding.command.BindingAction;
 import me.goldze.mvvmhabit.binding.command.BindingCommand;

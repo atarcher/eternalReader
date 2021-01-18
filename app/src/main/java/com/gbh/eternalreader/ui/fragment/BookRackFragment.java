@@ -14,12 +14,9 @@ import com.gbh.eternalreader.R;
 import com.gbh.eternalreader.database.DBHelper;
 import com.gbh.eternalreader.database.entity.Book;
 import com.gbh.eternalreader.databinding.FragmentBookrackBinding;
-import com.gbh.eternalreader.vm.rack.BookGridItemViewModel;
-import com.gbh.eternalreader.vm.rack.BookItemViewModel;
 import com.gbh.eternalreader.vm.rack.BookRackViewModel;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 import me.goldze.mvvmhabit.base.BaseFragment;
 import me.tatarka.bindingcollectionadapter2.BindingRecyclerViewAdapter;

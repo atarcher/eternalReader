@@ -2,7 +2,6 @@ package com.gbh.eternalreader.vm.rack;
 
 import android.app.Application;
 import android.content.Context;
-import android.text.TextUtils;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
@@ -10,12 +9,9 @@ import androidx.databinding.BindingAdapter;
 import androidx.databinding.ObservableArrayList;
 import androidx.databinding.ObservableList;
 
-import com.bumptech.glide.Glide;
 import com.gbh.eternalreader.BR;
 import com.gbh.eternalreader.R;
 import com.gbh.eternalreader.database.entity.Book;
-import com.gbh.eternalreader.ui.fragment.BookRackFragment;
-import com.gbh.eternalreader.vm.rack.BookItemViewModel;
 import com.scwang.smart.refresh.layout.SmartRefreshLayout;
 
 import java.util.List;
@@ -25,7 +21,6 @@ import me.goldze.mvvmhabit.binding.command.BindingCommand;
 import me.goldze.mvvmhabit.bus.event.SingleLiveEvent;
 import me.goldze.mvvmhabit.utils.ToastUtils;
 import me.tatarka.bindingcollectionadapter2.ItemBinding;
-import me.tatarka.bindingcollectionadapter2.OnItemBind;
 
 /**
  * Created by gbh

@@ -8,8 +8,8 @@ import com.gbh.eternalreader.BR;
 import com.gbh.eternalreader.R;
 import com.gbh.eternalreader.adapter.FragmentAdapter;
 import com.gbh.eternalreader.databinding.ActivityMainBinding;
-import com.gbh.eternalreader.ui.fragment.TabBar1Fragment;
 import com.gbh.eternalreader.ui.fragment.BookRackFragment;
+import com.gbh.eternalreader.ui.fragment.TabBar1Fragment;
 import com.gbh.eternalreader.ui.fragment.TabBar3Fragment;
 import com.gbh.eternalreader.vm.MainViewModel;
 
