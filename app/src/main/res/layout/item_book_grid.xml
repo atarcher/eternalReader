@@ -10,6 +10,11 @@
             name="viewModel"
             type="com.gbh.eternalreader.vm.rack.BookGridItemViewModel" />
 
+        <import type="com.gbh.eternalreader.vm.rack.BookRackViewModel" />
+
+        <variable
+            name="Model"
+            type="BookRackViewModel" />
     </data>
 
     <RelativeLayout
@@ -33,8 +38,7 @@
                     android:layout_width="90dp"
                     android:layout_height="120dp"
                     android:scaleType="fitXY"
-                    android:src="@drawable/no_cover"
-                    />
+                    android:src="@drawable/no_cover" />
 
                 <ImageView
                     android:id="@+id/book_chose"
@@ -45,7 +49,7 @@
                     android:layout_marginEnd="5dp"
                     android:layout_marginBottom="5dp"
                     android:src="@drawable/image_unselect"
-                    android:visibility="gone" />
+                    android:visibility="@{viewModel.imgVisibility}" />
             </RelativeLayout>
 
             <TextView

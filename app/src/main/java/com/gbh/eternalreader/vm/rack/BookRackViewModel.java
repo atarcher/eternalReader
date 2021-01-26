@@ -51,6 +51,9 @@ public class BookRackViewModel extends BaseViewModel {
         }
     }
 
+
+    public SingleLiveEvent<BookItemViewModel> LongClick = new SingleLiveEvent<>();
+
     //封装一个界面发生改变的观察者
     public UIChangeObservable uc = new UIChangeObservable();
 

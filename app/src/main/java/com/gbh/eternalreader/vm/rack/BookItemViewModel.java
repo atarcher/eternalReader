@@ -1,15 +1,19 @@
 package com.gbh.eternalreader.vm.rack;
 
+import android.annotation.SuppressLint;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.BindingAdapter;
+import androidx.databinding.ObservableInt;
 
 import com.bumptech.glide.Glide;
 import com.gbh.eternalreader.R;
+import com.jakewharton.rxbinding2.view.RxView;
 
 import me.goldze.mvvmhabit.base.BaseViewModel;
 import me.goldze.mvvmhabit.base.ItemViewModel;
@@ -27,6 +31,7 @@ public class BookItemViewModel<VM extends BaseViewModel> extends ItemViewModel<V
     }
 
     protected Object itemType;
+    public ObservableInt imgVisibility = new ObservableInt();
 
     public Object getItemType() {
         return itemType;
@@ -63,6 +68,20 @@ public class BookItemViewModel<VM extends BaseViewModel> extends ItemViewModel<V
                     .placeholder(R.drawable.no_cover)
                     .into(imageView);
         }
+    }
+
+    /**
+     * view的onLongClick事件绑定
+     */
+    @SuppressLint("CheckResult")
+    @BindingAdapter(value = {"onLongClickCommand"}, requireAll = false)
+    public static void onLongClickCommand(View view, final BindingCommand clickCommand) {
+        RxView.longClicks(view)
+                .subscribe(object -> {
+                    if (clickCommand != null) {
+                        clickCommand.execute();
+                    }
+                });
     }
 
     /* @BindingAdapter({"onLongClickCommand"})

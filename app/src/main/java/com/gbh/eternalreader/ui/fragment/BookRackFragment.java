@@ -2,6 +2,7 @@ package com.gbh.eternalreader.ui.fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.Nullable;
@@ -19,6 +20,7 @@ import com.gbh.eternalreader.vm.rack.BookRackViewModel;
 import java.util.ArrayList;
 
 import me.goldze.mvvmhabit.base.BaseFragment;
+import me.goldze.mvvmhabit.utils.ToastUtils;
 import me.tatarka.bindingcollectionadapter2.BindingRecyclerViewAdapter;
 
 /**
@@ -29,6 +31,7 @@ import me.tatarka.bindingcollectionadapter2.BindingRecyclerViewAdapter;
 public class BookRackFragment extends BaseFragment<FragmentBookrackBinding, BookRackViewModel> {
 
     private ArrayList<Book> mBooks = new ArrayList<>();
+    public Boolean bookState = true;
 
     @Override
     public int initContentView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -44,7 +47,12 @@ public class BookRackFragment extends BaseFragment<FragmentBookrackBinding, Book
     public void initData() {
         super.initData();
         binding.recyclerView.setAdapter(new BindingRecyclerViewAdapter());
+        //默认网格布局
         binding.recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
+        //默认不显示
+        for (int i = 0; i < viewModel.observableList.size(); i++) {
+            viewModel.observableList.get(i).imgVisibility.set(View.GONE);
+        }
     }
 
     @Override
@@ -64,6 +72,21 @@ public class BookRackFragment extends BaseFragment<FragmentBookrackBinding, Book
                 //结束刷新
                 binding.refreshLayout.finishLoadMore();
             }
+        });
+
+        //监听长按事件
+        viewModel.LongClick.observe(this, bookItemViewModel -> {
+            if (bookState) {
+                for (int i = 0; i < viewModel.observableList.size(); i++) {
+                    viewModel.observableList.get(i).imgVisibility.set(View.VISIBLE);
+                }
+            } else {
+                for (int i = 0; i < viewModel.observableList.size(); i++) {
+                    viewModel.observableList.get(i).imgVisibility.set(View.GONE);
+                }
+            }
+            ToastUtils.showShort("还是长按");
+            bookState = !bookState;
         });
     }
 
@@ -87,7 +110,7 @@ public class BookRackFragment extends BaseFragment<FragmentBookrackBinding, Book
             if (binding.recyclerView.getAdapter() == null) {
                 binding.recyclerView.setAdapter(new BindingRecyclerViewAdapter());
             }
-            if(binding.getViewModel().ViewSwitch) {
+            if (binding.getViewModel().ViewSwitch) {
                 binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
                 binding.getViewModel().setBook_List(mBooks);
             } else {
@@ -101,12 +124,12 @@ public class BookRackFragment extends BaseFragment<FragmentBookrackBinding, Book
     }
 
     /**
-    * @Description: 检测尚未阅读章节数
-    * @Param: []
-    * @return: void
-    * @Author: GBH
-    * @Date: 2021/1/18
-    */
+     * @Description: 检测尚未阅读章节数
+     * @Param: []
+     * @return: void
+     * @Author: GBH
+     * @Date: 2021/1/18
+     */
     public void initSurplusChapters() {
         //todo:从网络获取剩余未读章节数
     }

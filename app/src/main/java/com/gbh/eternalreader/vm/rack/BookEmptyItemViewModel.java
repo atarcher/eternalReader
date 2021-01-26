@@ -11,7 +11,7 @@ import me.goldze.mvvmhabit.utils.ToastUtils;
  * Date 2021/1/18
  * Description
  */
-public class BookEmptyItemViewModel extends BookItemViewModel{
+public class BookEmptyItemViewModel extends BookItemViewModel<BookRackViewModel> {
     public BookEmptyItemViewModel(@NonNull BookRackViewModel viewModel) {
         super(viewModel);
     }
