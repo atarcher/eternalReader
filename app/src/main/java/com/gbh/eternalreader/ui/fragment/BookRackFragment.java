@@ -1,11 +1,13 @@
 package com.gbh.eternalreader.ui.fragment;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -18,6 +20,9 @@ import com.gbh.eternalreader.databinding.FragmentBookrackBinding;
 import com.gbh.eternalreader.vm.rack.BookRackViewModel;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 import me.goldze.mvvmhabit.base.BaseFragment;
 import me.goldze.mvvmhabit.utils.ToastUtils;
@@ -32,6 +37,7 @@ public class BookRackFragment extends BaseFragment<FragmentBookrackBinding, Book
 
     private ArrayList<Book> mBooks = new ArrayList<>();
     public Boolean bookState = true;
+    public Boolean bookChoseState = true;
 
     @Override
     public int initContentView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -74,7 +80,29 @@ public class BookRackFragment extends BaseFragment<FragmentBookrackBinding, Book
             }
         });
 
-        //监听长按事件
+        //监听书本项点击事件
+        viewModel.itemClick.observe(this, bookItemViewModel -> {
+            if (!bookState) {
+                int index = viewModel.getPosition(bookItemViewModel);
+                if (!booleanMap.containsKey(index)) {
+                    booleanMap.put(index, true);
+                }
+                if (booleanMap.get(index)) {
+                    viewModel.observableList.get(index).imgSrc =
+                            ContextCompat.getDrawable(viewModel.getApplication(), R.drawable.image_select);
+                } else {
+                    viewModel.observableList.get(index).imgSrc =
+                            ContextCompat.getDrawable(viewModel.getApplication(), R.drawable.image_unselect);
+                }
+                booleanMap.put(index, !booleanMap.get(index));
+                Objects.requireNonNull(binding.recyclerView.getAdapter()).notifyDataSetChanged();
+            } else {
+                ToastUtils.showShort("点击成功");
+                //进入阅读界面
+            }
+        });
+
+        //监听书本项长按事件
         viewModel.LongClick.observe(this, bookItemViewModel -> {
             if (bookState) {
                 for (int i = 0; i < viewModel.observableList.size(); i++) {
@@ -82,13 +110,18 @@ public class BookRackFragment extends BaseFragment<FragmentBookrackBinding, Book
                 }
             } else {
                 for (int i = 0; i < viewModel.observableList.size(); i++) {
+                    viewModel.observableList.get(i).imgSrc =
+                            ContextCompat.getDrawable(viewModel.getApplication(), R.drawable.image_unselect);
                     viewModel.observableList.get(i).imgVisibility.set(View.GONE);
                 }
+                Objects.requireNonNull(binding.recyclerView.getAdapter()).notifyDataSetChanged();
             }
             ToastUtils.showShort("还是长按");
             bookState = !bookState;
         });
     }
+
+    private Map<Integer, Boolean> booleanMap = new HashMap<>();
 
     private void initBook() {
         mBooks.clear();
@@ -137,6 +170,7 @@ public class BookRackFragment extends BaseFragment<FragmentBookrackBinding, Book
     @Override
     public void onResume() {
         super.onResume();
+        booleanMap.clear();
         initBook();
     }
 }

@@ -51,7 +51,7 @@ public class BookRackViewModel extends BaseViewModel {
         }
     }
 
-
+    public SingleLiveEvent<BookItemViewModel> itemClick = new SingleLiveEvent<>();
     public SingleLiveEvent<BookItemViewModel> LongClick = new SingleLiveEvent<>();
 
     //封装一个界面发生改变的观察者
@@ -108,11 +108,17 @@ public class BookRackViewModel extends BaseViewModel {
         ToastUtils.showShort("下拉刷新");
         uc.finishRefreshing.call();
     });
+
     //上拉加载
     public BindingCommand onLoadMore = new BindingCommand(() -> {
         ToastUtils.showShort("上拉加载");
         uc.finishLoadMore.call();
     });
+
+    //获取item位置
+    public int getPosition(BookItemViewModel bookItemViewModel) {
+        return observableList.indexOf(bookItemViewModel);
+    }
 
     public void setBook_Empty() {
         observableList.clear();

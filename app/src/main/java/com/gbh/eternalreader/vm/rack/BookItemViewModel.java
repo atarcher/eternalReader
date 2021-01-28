@@ -1,6 +1,7 @@
 package com.gbh.eternalreader.vm.rack;
 
 import android.annotation.SuppressLint;
+import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
@@ -8,6 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.databinding.BindingAdapter;
 import androidx.databinding.ObservableInt;
 
@@ -32,6 +34,7 @@ public class BookItemViewModel<VM extends BaseViewModel> extends ItemViewModel<V
 
     protected Object itemType;
     public ObservableInt imgVisibility = new ObservableInt();
+    public Drawable imgSrc = ContextCompat.getDrawable(viewModel.getApplication(), R.drawable.image_unselect);
 
     public Object getItemType() {
         return itemType;

@@ -2,6 +2,8 @@ package com.gbh.eternalreader.vm.rack;
 
 import androidx.annotation.NonNull;
 
+import com.gbh.eternalreader.database.entity.Book;
+
 import me.goldze.mvvmhabit.binding.command.BindingAction;
 import me.goldze.mvvmhabit.binding.command.BindingCommand;
 import me.goldze.mvvmhabit.utils.ToastUtils;
@@ -20,7 +22,8 @@ public class BookGridItemViewModel extends BookItemViewModel<BookRackViewModel> 
     public BindingCommand itemClick = new BindingCommand(new BindingAction() {
         @Override
         public void call() {
-            ToastUtils.showShort("短暂点击");
+//            ToastUtils.showShort("短暂点击");
+            viewModel.itemClick.setValue(BookGridItemViewModel.this);
         }
     });
 

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize">
+<!--标题栏，待编辑-->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="#F2EFED"
+        android:visibility="visible"/>
+
+    <RelativeLayout
+        android:id="@+id/rlt_select_bar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="#f1eeec"
+        android:visibility="gone">
+        <TextView
+            android:id="@+id/select_bar_cancel"
+            android:layout_width="75dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="取消"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="16sp" />
+        <TextView
+            android:id="@+id/select_bar_selected"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="已选择%d项"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="16sp" />
+        <TextView
+            android:id="@+id/select_bar_select_all"
+            android:layout_width="75dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:text="全选"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="16dp" />
+    </RelativeLayout>
+</RelativeLayout>
